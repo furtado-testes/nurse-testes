@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstágioCare</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { margin: 0; background: #F2F2F7; }
+    #loading {
+      position: fixed; inset: 0; background: #F2F2F7;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+      z-index: 9999;
+    }
+    #loading .box {
+      width: 56px; height: 56px; border-radius: 16px; background: #007AFF;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #loading p { font-family: -apple-system, Inter, sans-serif; font-size: 14px; color: #8E8E93; margin: 0; }
+    #loading .spin {
+      width: 22px; height: 22px; border: 2px solid #E5E5EA;
+      border-top-color: #007AFF; border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="loading">
+    <div class="box">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+    </div>
+    <div class="spin"></div>
+    <p>A carregar EstágioCare...</p>
+  </div>
+
+  <div id="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" src="app.js" data-presets="react"></script>
+
+  <script>
+    (function () {
+      var t = setInterval(function () {
+        var root = document.getElementById('root');
+        if (root && root.children.length > 0) {
+          clearInterval(t);
+          var el = document.getElementById('loading');
+          if (el) {
+            el.style.transition = 'opacity .3s';
+            el.style.opacity = '0';
+            setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 350);
+          }
+        }
+      }, 80);
+    })();
+  </script>
+</body>
+</html>
